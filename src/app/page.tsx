@@ -18,7 +18,7 @@ export default function Home() {
     if (!url) { setError('请输入网站地址'); return }
     setLoading(true); setError(''); setIconUrl(''); setCopied(false)
     try {
-      const domain = url.trim().replace(/^https?:\\/\\//, '')
+      const domain = url.trim().replace(/^https?:\/\//, '')
       setIconUrl(`/api/icon?url=${encodeURIComponent(domain)}&size=${iconSize}`)
       if (stats !== null) setStats(prev => prev !== null ? prev + 1 : 1)
     } catch { setError('请输入有效的网站地址') }
@@ -27,7 +27,7 @@ export default function Home() {
 
   const copyApiUrl = async () => {
     if (!url) return
-    const domain = url.trim().replace(/^https?:\\/\\//, '')
+    const domain = url.trim().replace(/^https?:\/\//, '')
     await navigator.clipboard.writeText(`${window.location.origin}/api/icon?url=${encodeURIComponent(domain)}&size=${iconSize}`)
     setCopied(true); setTimeout(() => setCopied(false), 2000)
   }
@@ -35,7 +35,7 @@ export default function Home() {
   const downloadIcon = () => {
     if (!iconUrl) return
     const link = document.createElement('a')
-    link.href = iconUrl; link.download = `icon-${url.replace(/^https?:\\/\\//, '')}-${iconSize}.png`; link.click()
+    link.href = iconUrl; link.download = `icon-${url.replace(/^https?:\/\//, '')}-${iconSize}.png`; link.click()
   }
 
   const formatNumber = (num: number) => num >= 1000000 ? (num / 1000000).toFixed(1) + 'M' : num >= 1000 ? (num / 1000).toFixed(1) + 'K' : num.toString()
